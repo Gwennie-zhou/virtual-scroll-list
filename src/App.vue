@@ -1,15 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <VirtualScrollList v-bind="info" v-slot="slotProps">
+    <item :id="slotProps.id"/>
+  </VirtualScrollList>
+  <!-- <div >
+    <item v-for="(i, index) in info.dataSet" :id="i" :key="index"/>
+  </div> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Item from './components/Item.vue';
+import VirtualScrollList from './components/VirtualScrollList.vue';
 export default {
   name: 'App',
+  data() {
+    return {
+      info: {
+        height: 200, //单个item高度
+        containerHeight: 600, // 容器高度
+        dataSet: [...Array(10000).keys()] // 数据集
+      }
+    }
+  },
+  
   components: {
-    HelloWorld
+    Item,
+    VirtualScrollList
   }
 }
 </script>
@@ -22,5 +37,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+* {
+  margin: 0;
 }
 </style>
